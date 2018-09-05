@@ -1,0 +1,72 @@
+<div class="sc-chat-window" class:opened="active" class:closed="!active">
+  <WidgetHeader
+    imageUrl="https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png"
+    teamName="svelte-live-chat"
+    on:closechat="fire('closechat')"
+  />
+  <MessageList bind:messages=messages/>
+  <UserInput showEmoji="true" on:submitMessage="submitMessage(event)" />
+</div>
+
+
+<style>
+ .sc-chat-window {
+   width: 370px;
+   height: calc(100% - 120px);
+   max-height: 590px;
+   position: fixed;
+   right: 25px;
+   bottom: 100px;
+   box-sizing: border-box;
+   box-shadow: 0px 7px 40px 2px rgba(148, 149, 150, 0.3);
+   background: white;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   transition: 0.3s ease-in-out;
+   border-radius: 10px;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+ }
+
+ .sc-chat-window.closed {
+   opacity: 0;
+   visibility: hidden;
+   bottom: 90px;
+ }
+
+</style>
+
+<script>
+ import WidgetHeader from './WidgetHeader.html';
+ import MessageList from './MessageList.html';
+ import UserInput from './UserInput.html';
+ import messages from './messageHistory';
+
+ export default {
+   components: {
+     WidgetHeader, MessageList, UserInput
+   },
+
+   methods: {
+     submitMessage(event) {
+       debugger
+       const { messages }  = this.get();
+       let newMessage = {
+         author: 'me',
+         type: 'text',
+         data: { text: event.message }
+       };
+       this.set({ messages: [...messages, newMessage]});
+     }
+   },
+
+   data: function() {
+     return {
+       messages,
+     }
+   }
+
+
+
+ }
+</script>

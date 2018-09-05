@@ -1,0 +1,28 @@
+<div class="sc-message-list">
+  {#each messages as message}
+  <Message message={message}/>
+  {/each}
+</div>
+
+<style>
+ .sc-message-list {
+   height: 80%;
+   overflow-y: auto;
+   background-color: white;
+   background-size: 100%;
+   padding: 40px 0px;
+ }
+
+</style>
+
+<script>
+ import Message from './Message.html';
+
+  export default {
+    components:{
+      Message
+    }
+
+
+  }
+</script>
